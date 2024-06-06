@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>RPG Battle</title>
+</head>
+<body>
+    <div id="game">
+        <!-- Screen -->
+        <div class="screen">
+            <!-- Monster Info -->
+            <div class='monster_info_container'>
+                <h2 id="monster_name">Monster's info</h2>
+                <div id="monster_hp">
+                    <progress value=50 max=100 class='info_hp'></progress>
+                </div>
+            </div>
+            <!-- Monster Sprite -->
+            <div id='monster_image_container'>
+                <img src='asset/stickman.PNG'/>
+            </div>
+        </div>
+        <!-- Menu -->
+        <div class="menu">
+            <!-- Actions -->
+            <div class='action_selector_container'>
+                <div class='action_selector'>Attack</div>
+                <div class='action_selector'>Magic</div>
+                <div class='action_selector'>Items</div>
+                <div class='action_selector'>Flee</div>
+            </div>
+            <!-- Logs -->
+            <div id='log_container'></div>
+            <!-- Hero's Info -->
+            <div class='info_container'>
+                <h2>Your Hero's info</h2>
+                <div id="hero_hp">
+                    <progress value=50 max=100 class='info_hp'></progress>
+                </div>
+                <div id="hero_mp">
+                    <progress value=25 max=50 class='info_mp'></progress>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="modules/game.js" type="module"></script>
+</body>
+</html>

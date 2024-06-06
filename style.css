@@ -1,0 +1,98 @@
+/* Global */
+body {
+    border-collapse: collapse;
+    margin: 0;
+}
+
+/* Game */
+#game {
+    max-width: 100%;
+    height: 100vh;
+}
+
+/* Screen */
+.screen {
+    width: 100%;
+    height: 80%;
+}
+.monster_info_container {
+    position: absolute;
+    left: 2%;
+    top: 3%;
+    text-align: center;
+    background-color: rgb(199, 199, 199);
+    border-radius: 10px;
+    width: 20%;
+    height: 40%;
+}
+#monster_image_container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+#monster_image_container img {
+    width: 10%;
+}
+
+/* Menu */
+#log_container {
+    background-color: rgb(68, 68, 68);
+    padding: 0.4em;
+    width: 50%;
+    height: auto;
+}
+.log_txt {
+    color: rgb(219, 219, 219);
+    font-size: 1.5em;
+}
+.menu {
+    display: flex;
+    background-color: rgb(199, 199, 199);
+    width: 100%;
+    height: 20%;
+    user-select: none;
+}
+.action_selector_container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    width: 30%;
+    height: 100%;
+    gap: 1px;
+}
+.action_selector {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(82, 200, 255);
+    border: 1px solid black;
+    border-radius: 10px;
+    font-size: 2em;
+    width: 48%;
+    height: auto;
+}
+.action_selector:hover {
+    background-color: rgb(140, 219, 255);
+    box-shadow: 2px 2px 10px rgba(61, 61, 61, 0.75);
+    cursor: pointer;
+}
+.info_container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 20%;
+    height: 100%;
+}
+.info_hp::-webkit-progress-value,
+.info_hp::-moz-progress-bar {
+    background-color: rgb(235, 16, 0);
+}
+.info_mp::-webkit-progress-value,
+.info_mp::-moz-progress-bar {
+    background-color: rgb(0, 150, 250);
+}
+progress {
+    margin: 0.2em;
+    border-radius: 10px;
+}
