@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
 // Game System
 const hero = new Hero(100, 50, 10);
 
-function GenerateMonster() {
+function GenerateMonster(flee = undefined) {
     let rng = Math.floor(Math.random()*4)+1;
 
     switch(rng) {
@@ -42,7 +42,9 @@ function GenerateMonster() {
             monster = new Monster('Powered Small Slime', 60, 4, './asset/Slime3.png');
             break;
     }
-    logs.innerHTML = `<p class='log_txt'>${monster.name} appear.</p>`;
+
+    flee === 'yes' ? logs.innerHTML = `<p class='log_txt'>${monster.name} appear when you tried to flee.</p>`
+    : logs.innerHTML = `<p class='log_txt'>${monster.name} appear.</p>`;
     updateMonster();
 }
 
@@ -59,6 +61,12 @@ function doAction(type) {
             break;
         case 'Magic':
             hero.Fireball(monster, logs);
+            break;
+        case 'Items':
+            logs.innerHTML = "<p class='log_txt'>This functionnality isn't implemented yet</p>";
+            break;
+        case 'Flee':
+            GenerateMonster('yes');
             break;
     }
     updateHero();
