@@ -75,9 +75,7 @@ function doAction(type) {
 }
 
 function respawn() {
-    if (monster.hp <= 0) {
-        GenerateMonster();
-    }
+    monster.hp <= 0 && GenerateMonster();
 }
 
 function updateHero() {
