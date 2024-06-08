@@ -135,7 +135,7 @@ function updateBackpack() {
 
     let backpack_items = document.getElementsByClassName('backpack_items');
     for (let item of backpack_items) {
-        item.addEventListener('click', () => {
+        item.addEventListener('mouseover', () => {
             itemDescription(item.innerText);
         })
     }
