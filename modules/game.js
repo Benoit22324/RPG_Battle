@@ -91,8 +91,8 @@ function GenerateMonster(flee = undefined) {
             break;
     }
 
-    flee === 'yes' ? logs.innerHTML = `<p class='log_txt'>${monster.name} appear when you tried to flee.</p>`
-    : logs.innerHTML += `<p class='log_txt'>${monster.name} appear.</p>`;
+    flee === 'yes' ? logs.innerHTML = `<p class='log_txt'>A ${monster.name} appear when you tried to flee.</p>`
+    : logs.innerHTML += `<p class='log_txt'>A ${monster.name} appear.</p>`;
     updateMonster();
 }
 
@@ -112,7 +112,7 @@ function getDrops() {
         if (rng <= drop.pourcent) {
             backpack.push(drop.name);
             updateBackpack();
-            logs.innerHTML = `<p class='log_txt'>You got ${drop.name} at ${drop.pourcent}%.</p>`
+            logs.innerHTML = `<p class='log_txt'>You got ${drop.name} at ${drop.pourcent}% from ${monster.name}.</p>`
         }
     }
 }
