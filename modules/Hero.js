@@ -16,7 +16,7 @@ class Hero {
         if (this.mp >= 10) {
             monster.hp -= 15;
             this.mp -= 10;
-            log.innerHTML = `<p class='log_txt'>${monster.name} took 15 damages. You lost 10 mana in return.</p>`;
+            log.innerHTML = `<p class='log_txt'>${monster.name} took 15 damages but you loose 10 mana.</p>`;
         }
         else {
             log.innerHTML = `<p class='log_txt'>You don't have enough mana.</p>`;
