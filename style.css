@@ -97,12 +97,26 @@ body {
 #backpack_content {
     display: flex;
     flex-wrap: wrap;
+    width: 100%;
+    height: 75%;
 }
 .backpack_items {
     margin: 0.5em;
     padding: 0.3em;
+    height: fit-content;
     background-color: rgb(255, 182, 123);
     border-radius: 2px;
+    cursor: pointer;
+}
+#backpack_description {
+    width: 100%;
+    height: 20%;
+    border-radius: 5px;
+    background-color: rgb(175, 175, 175);
+}
+#backpack_description p,
+#backpack_description h3 {
+    margin: 0 2px;
 }
 
 /* Menu */

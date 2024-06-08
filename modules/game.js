@@ -12,6 +12,7 @@ let backpack = [];
 let backpack_overlay = document.getElementById('backpack_overlay');
 let backpack_close = document.getElementById('backpack_close');
 let backpack_content = document.getElementById('backpack_content');
+let backpack_description = document.getElementById('backpack_description');
 
 let actions_btn = document.getElementsByClassName('action_selector');
 
@@ -42,6 +43,13 @@ start_btn.addEventListener('click', () => {
 backpack_close.addEventListener('click', () => {
     backpack_overlay.classList.toggle('hidden');
 })
+
+function itemDescription(item) {
+    if (item === 'Goo') backpack_description.innerHTML = `<h3>${item}</h3> <p>This is just Slime's goo.</p>`;
+    if (item === 'Enchanted Goo') backpack_description.innerHTML = `<h3>${item}</h3> <p>This goo was enchanted by the top hat that a Slime rarely wear.</p>`;
+    if (item === 'Stick') backpack_description.innerHTML = `<h3>${item}</h3> <p>How dare you to take the leg of the Stickman !</p>`;
+    if (item === 'Potion') backpack_description.innerHTML = `<h3>${item}</h3> <p>This potion looks strange. It a bit purple and remind me Shion's meal.</p>`;
+}
 
 // Action Button Trigger
 for (let action_btn of actions_btn) {
@@ -123,6 +131,13 @@ function updateBackpack() {
     
     for (let content of backpack) {
         backpack_content.innerHTML += `<div class='backpack_items'>${content}</div>`;
+    }
+
+    let backpack_items = document.getElementsByClassName('backpack_items');
+    for (let item of backpack_items) {
+        item.addEventListener('click', () => {
+            itemDescription(item.innerText);
+        })
     }
 }
 
