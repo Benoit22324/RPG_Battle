@@ -3,6 +3,9 @@ import Hero from './Hero.js';
 import Monster from './Monster.js';
 
 // Variables
+let menu = document.getElementById('game_menu');
+let start_btn = document.getElementById('start_btn');
+
 let game = document.getElementById('game');
 
 let backpack = [];
@@ -24,7 +27,9 @@ let monster_hp_container = document.getElementById('monster_hp');
 let monster_sprite_container = document.getElementById('monster_image_container');
 
 // Init
-document.addEventListener('DOMContentLoaded', () => {
+start_btn.addEventListener('click', () => {
+    menu.classList.toggle('hidden');
+    game.classList.toggle('hidden');
     GenerateMonster();
     updateHero();
 })
