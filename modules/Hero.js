@@ -22,6 +22,25 @@ class Hero {
             log.innerHTML = `<p class='log_txt'>You don't have enough mana.</p>`;
         }
     }
+
+    Regenerate(type, log) {
+        switch(type) {
+            case 'hp':
+                if (this.hp <= this.maxhp - 20) {
+                    this.hp += 20;
+                    log.innerHTML = `<p class='log_txt'>You've been healed and regain 20 hp.</p>`;
+                }
+                else log.innerHTML = `<p class='log_txt'>You cannot heal yet.</p>`;
+                break;
+            case 'mana':
+                if (this.mp <= this.maxmp - 10) {
+                    this.mp += 10;
+                    log.innerHTML = `<p class='log_txt'>You've restored your mana and regain 10 mp.</p>`;
+                }
+                else log.innerHTML = `<p class='log_txt'>You cannot recover your mana yet.</p>`;
+                break;
+        }
+    }
 }
 
 export default Hero

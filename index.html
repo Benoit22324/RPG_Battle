@@ -44,7 +44,7 @@
             <div class='action_selector_container'>
                 <div class='action_selector'>Attack</div>
                 <div class='action_selector'>Magic</div>
-                <div class='action_selector'>Items</div>
+                <div class='action_selector'>Backpack</div>
                 <div class='action_selector'>Flee</div>
             </div>
             <!-- Logs -->
@@ -59,6 +59,13 @@
                     <progress value=25 max=50 class='info_mp'></progress>
                 </div>
             </div>
+        </div>
+    </div>
+    <div id="game_over_screen" class="hidden">
+        <div class="game_over_content">
+            <h1>Game Over</h1>
+            <p id="game_over_txt">You've been killed by Monster</p>
+            <div id="restart_btn">Restart</div>
         </div>
     </div>
     <script src="modules/game.js" type="module"></script>
