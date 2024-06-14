@@ -18,6 +18,7 @@ let backpack_close = document.getElementById('backpack_close');
 let backpack_content = document.getElementById('backpack_content');
 let backpack_description = document.getElementById('backpack_description');
 
+let actions_btn = document.getElementsByClassName('action_selector');
 let action1 = document.getElementById('action_1');
 let action2 = document.getElementById('action_2');
 let action4 = document.getElementById('action_4');
@@ -163,15 +164,10 @@ function StrangePotion() {
 }
 
 // Action Button Trigger
-ActionBtnSetup();
-function ActionBtnSetup() {
-    let actions_btn = document.getElementsByClassName('action_selector');
-
-    for (let action_btn of actions_btn) {
-        action_btn.addEventListener('click', () => {
-            doAction(action_btn.innerText);
-        })
-    }
+for (let action_btn of actions_btn) {
+    action_btn.addEventListener('click', () => {
+        doAction(action_btn.innerText);
+    })
 }
 
 function doAction(type) {
@@ -191,10 +187,10 @@ function doAction(type) {
             GenerateMonster('yes');
             break;
         case 'Buy':
-            console.log('buy');
+            logs.innerHTML = "<p class='log_txt'>You cannot buy for now (functionnality not added).</p>"
             break;
         case 'Sell':
-            console.log('sell');
+            logs.innerHTML = "<p class='log_txt'>You cannot sell for now (functionnality not added).</p>"
             break;
         case 'Go away':
             ShopAway();
@@ -270,7 +266,7 @@ function ShopAway() {
     action1.innerText = 'Attack';
     action2.innerText = 'Magic';
     action4.innerText = 'Flee';
-    
+
     GenerateMonster('shop');
 }
 
