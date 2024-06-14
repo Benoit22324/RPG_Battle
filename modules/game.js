@@ -19,6 +19,9 @@ let backpack_content = document.getElementById('backpack_content');
 let backpack_description = document.getElementById('backpack_description');
 
 let actions_btn = document.getElementsByClassName('action_selector');
+let action1 = document.getElementById('action_1');
+let action2 = document.getElementById('action_2');
+let action4 = document.getElementById('action_4');
 
 let logs = document.getElementById('log_container');
 
@@ -33,20 +36,20 @@ let monster_sprite_container = document.getElementById('monster_image_container'
 
 let loots = {
     'Small Slime': [
-        {name: 'Goo', pourcent: 20}
+        {name: 'Goo', pourcent: 20, quantity: {min: 1, max: 3}}
     ],
     'Medium Slime': [
-        {name: 'Goo', pourcent: 35}
+        {name: 'Goo', pourcent: 35, quantity: {min: 1, max: 3}}
     ],
     'Powered Small Slime': [
-        {name: 'Goo', pourcent: 50},
-        {name: 'Enchanted Goo', pourcent: 20}
+        {name: 'Goo', pourcent: 50, quantity: {min: 1, max: 4}},
+        {name: 'Enchanted Goo', pourcent: 20, quantity: {min: 1, max: 1}}
     ],
     'Stickman': [
-        {name: 'Mana Potion', pourcent: 25},
-        {name: 'Healing Potion', pourcent: 25},
-        {name: 'Strange Potion', pourcent: 30},
-        {name: 'Stick', pourcent: 50}
+        {name: 'Mana Potion', pourcent: 25, quantity: {min: 1, max: 2}},
+        {name: 'Healing Potion', pourcent: 25, quantity: {min: 1, max: 2}},
+        {name: 'Strange Potion', pourcent: 30, quantity: {min: 1, max: 3}},
+        {name: 'Stick', pourcent: 50, quantity: {min: 1, max: 2}}
     ],
 }
 
@@ -81,17 +84,17 @@ backpack_close.addEventListener('click', () => {
     backpack_overlay.classList.toggle('hidden');
 })
 
-function addItem(drop) {
+function addItem(drop, drop_quantity) {
     let exist = false;
 
     for (let item of backpack) {
         if (item.name === drop) {
-            item.quantity++;
+            item.quantity += drop_quantity;
             exist = true;
         }
     }
 
-    if (exist === false) backpack.push({name: drop, quantity: 1});
+    if (exist === false) backpack.push({name: drop, quantity: drop_quantity});
 }
 
 function itemDescription(item) {
@@ -227,9 +230,11 @@ function getDrops() {
         let rng = Math.floor(Math.random()*100);
 
         if (rng <= drop.pourcent) {
-            addItem(drop.name)
+            let quantity = Math.floor(Math.random() * drop.quantity.max) + drop.quantity.min;
+
+            addItem(drop.name, quantity)
             updateBackpack();
-            logs.innerHTML += `<p class='log_txt'>You got ${drop.name} at ${drop.pourcent}% from ${monster.name}.</p>`
+            logs.innerHTML += `<p class='log_txt'>You got ${quantity} ${drop.name} at ${drop.pourcent}% from ${monster.name}.</p>`
         }
     }
 }
