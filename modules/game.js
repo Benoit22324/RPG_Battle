@@ -18,7 +18,6 @@ let backpack_close = document.getElementById('backpack_close');
 let backpack_content = document.getElementById('backpack_content');
 let backpack_description = document.getElementById('backpack_description');
 
-let actions_btn = document.getElementsByClassName('action_selector');
 let action1 = document.getElementById('action_1');
 let action2 = document.getElementById('action_2');
 let action4 = document.getElementById('action_4');
@@ -164,10 +163,15 @@ function StrangePotion() {
 }
 
 // Action Button Trigger
-for (let action_btn of actions_btn) {
-    action_btn.addEventListener('click', () => {
-        doAction(action_btn.innerText);
-    })
+ActionBtnSetup();
+function ActionBtnSetup() {
+    let actions_btn = document.getElementsByClassName('action_selector');
+
+    for (let action_btn of actions_btn) {
+        action_btn.addEventListener('click', () => {
+            doAction(action_btn.innerText);
+        })
+    }
 }
 
 function doAction(type) {
@@ -186,6 +190,15 @@ function doAction(type) {
         case 'Flee':
             GenerateMonster('yes');
             break;
+        case 'Buy':
+            console.log('buy');
+            break;
+        case 'Sell':
+            console.log('sell');
+            break;
+        case 'Go away':
+            ShopAway();
+            break;
     }
     updateHero();
     updateMonster();
@@ -194,7 +207,7 @@ function doAction(type) {
 
 // Monster Generation/Respawn/Drops
 function GenerateMonster(flee = undefined) {
-    let rng = Math.floor(Math.random()*4) + 1;
+    let rng = Math.floor(Math.random() * 5) + 1;
 
     switch(rng) {
         case 1:
@@ -209,10 +222,18 @@ function GenerateMonster(flee = undefined) {
         case 4:
             monster = new Monster('Powered Small Slime', 60, 4, './asset/Slime3.png', loots['Powered Small Slime']);
             break;
+        case 5:
+            monster = new Monster('Shop', 9999, 9999, './asset/Shop.png');
+            break;
     }
 
-    flee === 'yes' ? logs.innerHTML = `<p class='log_txt'>A ${monster.name} appear when you tried to flee.</p>`
-    : logs.innerHTML += `<p class='log_txt'>A ${monster.name} appear.</p>`;
+    if (monster.name === 'Shop') {
+        ShopEncounter();
+    }
+
+    if (flee === 'yes') logs.innerHTML = `<p class='log_txt'>A ${monster.name} appear when you tried to flee.</p>`
+    else if (flee === 'shop') logs.innerHTML = `<p class='log_txt'>A ${monster.name} appear when you go away from the shop.</p>`
+    else logs.innerHTML += `<p class='log_txt'>A ${monster.name} appear.</p>`;
     updateMonster();
 }
 
@@ -237,6 +258,20 @@ function getDrops() {
             logs.innerHTML += `<p class='log_txt'>You got ${quantity} ${drop.name} at ${drop.pourcent}% from ${monster.name}.</p>`
         }
     }
+}
+
+// Event
+function ShopEncounter() {
+    action1.innerText = 'Buy';
+    action2.innerText = 'Sell';
+    action4.innerText = 'Go away';
+}
+function ShopAway() {
+    action1.innerText = 'Attack';
+    action2.innerText = 'Magic';
+    action4.innerText = 'Flee';
+    
+    GenerateMonster('shop');
 }
 
 // Updater
