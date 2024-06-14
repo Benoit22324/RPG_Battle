@@ -14,9 +14,9 @@ class Hero {
 
     Fireball(monster, log) {
         if (this.mp >= 10) {
-            monster.hp -= 15;
+            monster.hp -= 25;
             this.mp -= 10;
-            log.innerHTML = `<p class='log_txt'>${monster.name} took 15 damages but you loose 10 mana.</p>`;
+            log.innerHTML = `<p class='log_txt'>${monster.name} took 25 damages but you loose 10 mana.</p>`;
         }
         else {
             log.innerHTML = `<p class='log_txt'>You don't have enough mana.</p>`;
@@ -34,8 +34,8 @@ class Hero {
                 break;
             case 'mana':
                 if (this.mp <= this.maxmp - 10) {
-                    this.mp += 10;
-                    log.innerHTML = `<p class='log_txt'>You've restored your mana and regain 10 mp.</p>`;
+                    this.mp += 20;
+                    log.innerHTML = `<p class='log_txt'>You've restored your mana and regain 20 mp.</p>`;
                 }
                 else log.innerHTML = `<p class='log_txt'>You cannot recover your mana yet.</p>`;
                 break;

@@ -45,7 +45,7 @@ let loots = {
     'Stickman': [
         {name: 'Mana Potion', pourcent: 25},
         {name: 'Healing Potion', pourcent: 25},
-        {name: 'Strange Potion', pourcent: 20},
+        {name: 'Strange Potion', pourcent: 30},
         {name: 'Stick', pourcent: 50}
     ],
 }
@@ -76,7 +76,7 @@ restart_btn.addEventListener('click', () => {
     game_over_screen.classList.toggle('hidden');
 })
 
-// Backpack
+// Backpack Functionnality
 backpack_close.addEventListener('click', () => {
     backpack_overlay.classList.toggle('hidden');
 })
@@ -114,6 +114,10 @@ function itemInteraction(item) {
         hero.Regenerate('mana', logs);
         useItem(item);
     }
+    else if (item === 'Strange Potion') {
+        StrangePotion();
+        useItem(item);
+    }
     else return
 }
 
@@ -129,6 +133,31 @@ function useItem(item) {
     updateHero();
     updateBackpack();
     backpack_overlay.classList.toggle('hidden');
+}
+
+// Specific Item function
+
+function StrangePotion() {
+    let rng_effect = Math.floor(Math.random()*4) + 1;
+
+    switch(rng_effect) {
+        case 1:
+            hero.hp -= 50;
+            logs.innerHTML = `<p class='log_txt'>You've lost 50 hp from drinking the Strange Potion.</p>`;
+            break;
+        case 2:
+            hero.mp -= 20;
+            logs.innerHTML = `<p class='log_txt'>You've lost 20 mp from drinking the Strange Potion.</p>`;
+            break;
+        case 3:
+            hero.hp = hero.maxhp;
+            logs.innerHTML = `<p class='log_txt'>You've been fully healed from drinking the Strange Potion.</p>`;
+            break;
+        case 4:
+            hero.mp = hero.maxmp;
+            logs.innerHTML = `<p class='log_txt'>You've restored all your mana from drinking the Strange Potion.</p>`;
+            break;
+    }
 }
 
 // Action Button Trigger
@@ -162,7 +191,7 @@ function doAction(type) {
 
 // Monster Generation/Respawn/Drops
 function GenerateMonster(flee = undefined) {
-    let rng = Math.floor(Math.random()*4)+1;
+    let rng = Math.floor(Math.random()*4) + 1;
 
     switch(rng) {
         case 1:
