@@ -12,6 +12,8 @@ let restart_btn = document.getElementById('restart_btn');
 
 let game = document.getElementById('game');
 
+let gold_txt = document.getElementById('gold_txt');
+
 let backpack = [];
 let backpack_overlay = document.getElementById('backpack_overlay');
 let backpack_close = document.getElementById('backpack_close');
@@ -33,25 +35,6 @@ let monster;
 let monster_name_container = document.getElementById('monster_name');
 let monster_hp_container = document.getElementById('monster_hp');
 let monster_sprite_container = document.getElementById('monster_image_container');
-
-let loots = {
-    'Small Slime': [
-        {name: 'Goo', pourcent: 20, quantity: {min: 1, max: 3}}
-    ],
-    'Medium Slime': [
-        {name: 'Goo', pourcent: 35, quantity: {min: 1, max: 3}}
-    ],
-    'Powered Small Slime': [
-        {name: 'Goo', pourcent: 50, quantity: {min: 1, max: 4}},
-        {name: 'Enchanted Goo', pourcent: 20, quantity: {min: 1, max: 1}}
-    ],
-    'Stickman': [
-        {name: 'Mana Potion', pourcent: 25, quantity: {min: 1, max: 2}},
-        {name: 'Healing Potion', pourcent: 25, quantity: {min: 1, max: 2}},
-        {name: 'Strange Potion', pourcent: 30, quantity: {min: 1, max: 3}},
-        {name: 'Stick', pourcent: 50, quantity: {min: 1, max: 2}}
-    ],
-}
 
 /****************************
 ******** Game System ********
@@ -139,7 +122,6 @@ function useItem(item) {
 }
 
 // Specific Item function
-
 function StrangePotion() {
     let rng_effect = Math.floor(Math.random()*4) + 1;
 
@@ -202,21 +184,40 @@ function doAction(type) {
 }
 
 // Monster Generation/Respawn/Drops
+let loots = {
+    'Small Slime': [
+        {name: 'Goo', pourcent: 20, quantity: {min: 1, max: 3}}
+    ],
+    'Medium Slime': [
+        {name: 'Goo', pourcent: 35, quantity: {min: 1, max: 3}}
+    ],
+    'Powered Small Slime': [
+        {name: 'Goo', pourcent: 50, quantity: {min: 1, max: 4}},
+        {name: 'Enchanted Goo', pourcent: 20, quantity: {min: 1, max: 1}}
+    ],
+    'Stickman': [
+        {name: 'Mana Potion', pourcent: 25, quantity: {min: 1, max: 2}},
+        {name: 'Healing Potion', pourcent: 25, quantity: {min: 1, max: 2}},
+        {name: 'Strange Potion', pourcent: 30, quantity: {min: 1, max: 3}},
+        {name: 'Stick', pourcent: 50, quantity: {min: 1, max: 2}}
+    ],
+}
+
 function GenerateMonster(flee = undefined) {
     let rng = Math.floor(Math.random() * 5) + 1;
 
     switch(rng) {
         case 1:
-            monster = new Monster('Stickman', 100, 5, './asset/stickman.png', loots['Stickman']);
+            monster = new Monster('Stickman', 100, 5, './asset/stickman.png', loots['Stickman'], {min: 10, max: 15});
             break;
         case 2:
-            monster = new Monster('Small Slime', 20, 1, './asset/Slime1.png', loots['Small Slime']);
+            monster = new Monster('Small Slime', 20, 1, './asset/Slime1.png', loots['Small Slime'], {min: 1, max: 3});
             break;
         case 3:
-            monster = new Monster('Medium Slime', 45, 2, './asset/Slime2.png', loots['Medium Slime']);
+            monster = new Monster('Medium Slime', 45, 2, './asset/Slime2.png', loots['Medium Slime'], {min: 2, max: 4});
             break;
         case 4:
-            monster = new Monster('Powered Small Slime', 60, 4, './asset/Slime3.png', loots['Powered Small Slime']);
+            monster = new Monster('Powered Small Slime', 60, 4, './asset/Slime3.png', loots['Powered Small Slime'], {min: 3, max: 5});
             break;
         case 5:
             monster = new Monster('Shop', 9999, 9999, './asset/Shop.png');
@@ -243,13 +244,15 @@ function respawn() {
 function getDrops() {
     logs.innerHTML = '';
 
+    addGold(monster);
+
     for (let drop of monster.drops) {
         let rng = Math.floor(Math.random()*100);
 
         if (rng <= drop.pourcent) {
-            let quantity = Math.floor(Math.random() * drop.quantity.max) + drop.quantity.min;
+            let quantity = Math.floor(Math.random() * (drop.quantity.max - drop.quantity.min)) + drop.quantity.min;
 
-            addItem(drop.name, quantity)
+            addItem(drop.name, quantity);
             updateBackpack();
             logs.innerHTML += `<p class='log_txt'>You got ${quantity} ${drop.name} at ${drop.pourcent}% from ${monster.name}.</p>`
         }
@@ -268,6 +271,13 @@ function ShopAway() {
     action4.innerText = 'Flee';
 
     GenerateMonster('shop');
+}
+
+// Utility
+function addGold(monster) {
+    let test = Math.floor(Math.random() * (monster.golddrops.max - monster.golddrops.min)) + monster.golddrops.min;
+    hero.gold += test;
+    gold_txt.innerHTML = `${hero.gold} <img src='asset/gold.png'/>`;
 }
 
 // Updater

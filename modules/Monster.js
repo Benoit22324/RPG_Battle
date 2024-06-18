@@ -1,11 +1,12 @@
 class Monster {
-    constructor(paraName, paraHp, paraPower, paraSprite, paraDrops) {
+    constructor(paraName, paraHp, paraPower, paraSprite, paraDrops = undefined, paraGolddrops = undefined) {
         this.name = paraName;
         this.hp = paraHp;
         this.maxhp = paraHp;
         this.power = paraPower;
         this.sprite = paraSprite;
         this.drops = paraDrops;
+        this.golddrops = paraGolddrops;
     }
 
     Counter_Attack(hero, log) {

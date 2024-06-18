@@ -5,6 +5,7 @@ class Hero {
         this.mp = paraMp;
         this.maxmp = paraMp;
         this.power = paraPower;
+        this.gold = 0;
     }
 
     Slice(monster, log) {

@@ -219,3 +219,13 @@ progress {
     margin: 0.2em;
     border-radius: 10px;
 }
+#gold_txt {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+}
+#gold_txt img {
+    width: 30%;
+    margin-left: 5px;
+}
