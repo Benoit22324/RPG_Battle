@@ -27,6 +27,8 @@ let action4 = document.getElementById('action_4');
 
 let logs = document.getElementById('log_container');
 
+let fleecount = 0;
+
 const hero = new Hero(100, 50, 10);
 let hero_hp_container = document.getElementById('hero_hp');
 let hero_mp_container = document.getElementById('hero_mp');
@@ -59,6 +61,7 @@ restart_btn.addEventListener('click', () => {
 
     GenerateMonster();
     updateHero();
+    updateGold();
     updateBackpack();
     game_over_screen.classList.toggle('hidden');
 })
@@ -167,7 +170,8 @@ function doAction(type) {
             backpack_overlay.classList.toggle('hidden');
             break;
         case 'Flee':
-            GenerateMonster('yes');
+            if (fleecount === 3) forceFight();
+            else GenerateMonster('yes');
             break;
         case 'Buy':
             logs.innerHTML = "<p class='log_txt'>You cannot buy for now (functionnality not added).</p>"
@@ -229,9 +233,15 @@ function GenerateMonster(flee = undefined) {
         ShopEncounter();
     }
 
-    if (flee === 'yes') logs.innerHTML = `<p class='log_txt'>A ${monster.name} appear when you tried to flee.</p>`
+    if (flee === 'yes') {
+        fleecount++;
+        logs.innerHTML = `<p class='log_txt'>A ${monster.name} appear when you tried to flee.</p>`;
+    }
     else if (flee === 'shop') logs.innerHTML = `<p class='log_txt'>A ${monster.name} appear when you go away from the shop.</p>`
-    else logs.innerHTML += `<p class='log_txt'>A ${monster.name} appear.</p>`;
+    else {
+        fleecount = 0;
+        logs.innerHTML += `<p class='log_txt'>A ${monster.name} appear.</p>`;
+    }
     updateMonster();
 }
 
@@ -278,7 +288,11 @@ function ShopAway() {
 function addGold(monster) {
     let test = Math.floor(Math.random() * (monster.golddrops.max - monster.golddrops.min)) + monster.golddrops.min;
     hero.gold += test;
-    gold_txt.innerHTML = `${hero.gold} <img src='asset/gold.png'/>`;
+    updateGold();
+}
+function forceFight() {
+    logs.innerHTML = `<p class='log_txt'>You're tired of running around everywhere !</p>`;
+    monster.AntiFlee_Attack(hero, logs);
 }
 
 // Updater
@@ -298,6 +312,10 @@ function updateBackpack() {
             itemInteraction(item.innerText);
         })
     }
+}
+
+function updateGold() {
+    gold_txt.innerHTML = `${hero.gold} <img src='asset/gold.png'/>`;
 }
 
 function updateHero() {
