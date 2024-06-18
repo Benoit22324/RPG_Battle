@@ -54,6 +54,7 @@ restart_btn.addEventListener('click', () => {
     backpack_description.innerHTML = '';
     hero.hp = hero.maxhp;
     hero.mp = hero.maxmp;
+    hero.gold = 0;
     backpack = [];
 
     GenerateMonster();
